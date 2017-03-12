@@ -65,4 +65,5 @@ uint8_t Matrix_Fun[matrixRow][matrixCol] = {
 	{KEY_CTRL,  KEY_ALT,   'V',     0 ,    'T',     '3',    KEY_HOME,   KEY_END},
 	{KEY_WIN,   KEY_SPACE, '[',    KEY_F6, 'M',     '2',    KEY_ENTER,  KEY_PAGEDOWN}
 }
+
 #endif
