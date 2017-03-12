@@ -21,14 +21,14 @@ uint8_t Matrix[matrixRow][matrixCol] = {
 };
 
 uint8_t Matrix_Shift[matrixRow][matrixCol] = {
-	{'2','3','4','5','7','8','9','='},
-	{'1','d','h','f','o','l','p','-'},
-	{ESC,'b','e','u','n','i',',','~'},
-	{Tab,'o','s','a','w','r','.','\\'},
-	{Fun,'y','x',0  ,bak,'g',';','\''},
-	{shift,'z','c',0,'}','k',upA,'/'},
-	{ctrl,alt,'v',0 ,'t','j',lfA,rtA},
-	{win,spc,'{','6','m','q',etr,btA}
+	{'2','3','4','5','7','8','9','+'},
+	{'1','D','H','F','O','L','P','_'},
+	{ESC,'B','E','U','N','I','<','`'},
+	{Tab,'0','S','A','W','R','>','|'},
+	{Fun,'Y','X',0  ,Del,'G',':','\"'},
+	{shift,'Z','C',0,']','K',upA,'?'},
+	{ctrl,alt,'V',0 ,'T','J',lfA,rtA},
+	{win,spc,'[','6','M','Q',etr,btA}
 };
 
 #endif
