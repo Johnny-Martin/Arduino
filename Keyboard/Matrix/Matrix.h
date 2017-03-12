@@ -7,17 +7,29 @@
 
 uint8_t Row[matrixRow] = {1,2,3,4,5,6,7,8}; 
 uint8_t Col[matrixCol] = {9,10,11,12,13,A0,A1,A2};
+                         
+#define KEY_LEFT_SHIFT   KEY_SHIFT
+#define KEY_LEFT_CTRL    KEY_CTRL
+#define KEY_LEFT_ALT     KEY_ALT
+#define KEY_LEFT_GUI     KEY_WIN
+#define KEY_LEFT_ARROW   KEY_LARROW
+#define KEY_RIGHT_ARROW  KEY_RARROW
+#define KEY_DOWN_ARROW   KEY_DARROW
+#define KEY_UP_ARROW     KEY_UARROW
+#define KEY_FUN 0xFF
+#define KEY_SPACE ' '
+#define KEY_ENTER '\n'
 
 //程序员专用，上方一行数字键默认为符号
 uint8_t Matrix[matrixRow][matrixCol] = {
-	{'#','$','%','!','*','(',')','='},
-	{'@','d','h','f','o','l','p','-'},
-	{ESC,'b','e','u','n','i',',','~'},
-	{Tab,'^','s','a','w','r','.','\\'},
-	{Fun,'y','x',0  ,bak,'g',';','\''},
-	{shift,'z','c',0,'}','k',upA,'/'},
-	{ctrl,alt,'v',0 ,'t','j',lfA,rtA},
-	{win,spc,'{','&','m','q',etr,btA}
+	{'#',       '$',       '%', '!', '*',           '(', ')',        '='},
+	{'@',       'd',       'h', 'f', 'o',           'l', 'p',        '-'},
+	{KEY_ESC,   'b',       'e', 'u', 'n',           'i', ',',        '~'},
+	{KEY_TAB,   '^',       's', 'a', 'w',           'r', '.',        '\\'},
+	{KEY_FUN,   'y',       'x',  0 , KEY_BACKSPACE, 'g', ';',        '\''},
+	{KEY_SHIFT, 'z',       'c',  0 , '}',           'k', KEY_UARROW, '/'},
+	{KEY_CTRL,  KEY_ALT,   'v',  0 , 't',           'j', KEY_LARROW, KEY_RARROW},
+	{KEY_WIN,   KEY_SPACE, '{', '&', 'm',           'q', KEY_ENTER,  KEY_DARROW}
 };
 
 uint8_t Matrix_Shift[matrixRow][matrixCol] = {
@@ -25,7 +37,7 @@ uint8_t Matrix_Shift[matrixRow][matrixCol] = {
 	{'1','D','H','F','O','L','P','_'},
 	{ESC,'B','E','U','N','I','<','`'},
 	{Tab,'0','S','A','W','R','>','|'},
-	{Fun,'Y','X',0  ,Del,'G',':','\"'},
+	{Key_Fun,'Y','X',0  ,Del,'G',':','\"'},
 	{shift,'Z','C',0,']','K',upA,'?'},
 	{ctrl,alt,'V',0 ,'T','J',lfA,rtA},
 	{win,spc,'[','6','M','Q',etr,btA}
