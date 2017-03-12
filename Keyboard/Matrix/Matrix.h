@@ -17,6 +17,7 @@ uint8_t Col[matrixCol] = {9,10,11,12,13,A0,A1,A2};
 #define KEY_RIGHT_ARROW  KEY_RARROW
 #define KEY_DOWN_ARROW   KEY_DARROW
 #define KEY_UP_ARROW     KEY_UARROW
+
 #define KEY_FUN 0xFF
 #define KEY_SPACE ' '
 #define KEY_ENTER '\n'
@@ -38,10 +39,20 @@ uint8_t Matrix_Shift[matrixRow][matrixCol] = {
 	{'1',       'D',       'H', 'F', 'O',           'L', 'P',        '_'},
 	{KEY_ESC,   'B',       'E', 'U', 'N',           'I', '<',        '`'},
 	{KEY_TAB,   '0',       'S', 'A', 'W',           'R', '>',        '|'},
-	{Key_Fun,   'Y',       'X',  0 , KEY_DEL,       'G', ':',        '\"'},
+	{KEY_FUN,   'Y',       'X',  0 , KEY_DEL,       'G', ':',        '\"'},
 	{KEY_SHIFT, 'Z',       'C',  0 , ']',           'K', KEY_UARROW, '?'},
 	{KEY_CTRL,  KEY_ALT,   'V',  0 , 'T',           'J', KEY_LARROW, KEY_RARROW},
 	{KEY_WIN,   KEY_SPACE, '[', '6', 'M',           'Q', KEY_ENTER,  KEY_DARROW}
 };
 
+uint8_t Matrix_Fun[matrixRow][matrixCol] = {
+	{KEY_F2,    KEY_F3,    KEY_F4, KEY_F5, KEY_F7,  KEY_F8, KEY_F9,     '+'},
+	{KEY_F1,    'D',       'H',    'F',    '7',     '8',    '9',        '_'},
+	{KEY_ESC,   'B',       'E',    'U',    '4',     '5',    '<',        '`'},
+	{KEY_TAB,   '0',       'S',    'A',    '1',     '6',    '>',        '|'},
+	{KEY_FUN,   'Y',       'X',     0 ,    KEY_DEL, 'G',    ':',        '\"'},
+	{KEY_SHIFT, 'Z',       'C',     0 ,    '0',     'K',    KEY_UARROW, '?'},
+	{KEY_CTRL,  KEY_ALT,   'V',     0 ,    'T',     '3',    KEY_LARROW, KEY_RARROW},
+	{KEY_WIN,   KEY_SPACE, '[',    KEY_F6, 'M',     '2',    KEY_ENTER,  KEY_DARROW}
+}
 #endif
