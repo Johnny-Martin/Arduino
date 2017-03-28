@@ -1,0 +1,23 @@
+﻿# This file is generated. Do not change.
+
+Array			KEYWORD1
+Collection			KEYWORD1
+Control			KEYWORD1
+ControlContainer			KEYWORD1
+Default			KEYWORD1
+DisplayWriter			KEYWORD1
+FixedArray			KEYWORD1
+HD44780_DisplayWriter			KEYWORD1
+HorizontalPanel			KEYWORD1
+InputControl			KEYWORD1
+Iterator			KEYWORD1
+LabelControl			KEYWORD1
+Line			KEYWORD1
+NavigationController			KEYWORD1
+Page			KEYWORD1
+PageController			KEYWORD1
+Panel			KEYWORD1
+PanelControlContainer			KEYWORD1
+TextControl			KEYWORD1
+UpDownControl			KEYWORD1
+VerticalPanel			KEYWORD1

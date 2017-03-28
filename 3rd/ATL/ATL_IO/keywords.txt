@@ -1,0 +1,13 @@
+﻿# This file is generated. Do not change.
+
+BitArray			KEYWORD1
+BufferedInputStream			KEYWORD1
+DigitalInput			KEYWORD1
+Serial3WireOutput			KEYWORD1
+TextFormatInfo			KEYWORD1
+TextWriter			KEYWORD1
+AnalogOutputPin			KEYWORD1
+DigitalInputPin			KEYWORD1
+DigitalOutputPin			KEYWORD1
+StreamInputStream			KEYWORD1
+StreamOutputStream			KEYWORD1

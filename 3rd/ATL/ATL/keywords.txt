@@ -1,0 +1,26 @@
+﻿# This file is generated. Do not change.
+
+Array			KEYWORD1
+ArrayRef			KEYWORD1
+Bit			KEYWORD1
+BitArray			KEYWORD1
+BitFlag			KEYWORD1
+Collection			KEYWORD1
+CollectionRef			KEYWORD1
+Default			KEYWORD1
+Delays			KEYWORD1
+Delegate			KEYWORD1
+FixedArray			KEYWORD1
+FixedArrayRef			KEYWORD1
+FixedString			KEYWORD1
+Func			KEYWORD1
+IdentifiableObject			KEYWORD1
+Iterator			KEYWORD1
+ProgMemAccessor			KEYWORD1
+Range			KEYWORD1
+Ringbuffer			KEYWORD1
+StaticArray			KEYWORD1
+StaticString			KEYWORD1
+Time			KEYWORD1
+ValueContainer			KEYWORD1
+Time_Arduino			KEYWORD1

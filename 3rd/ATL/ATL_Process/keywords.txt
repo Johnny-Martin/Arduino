@@ -1,0 +1,9 @@
+﻿# This file is generated. Do not change.
+
+Delays			KEYWORD1
+Time			KEYWORD1
+Time_Arduino			KEYWORD1
+IdentifiableObject			KEYWORD1
+PID			KEYWORD1
+Task			KEYWORD1
+TimeoutTask			KEYWORD1

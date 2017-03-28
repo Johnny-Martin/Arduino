@@ -1,0 +1,5 @@
+﻿# This file is generated. Do not change.
+
+TB6612FNG_Controller			KEYWORD1
+TB6612FNG_Driver			KEYWORD1
+TB6612FNG_DriverSerial3Wire			KEYWORD1

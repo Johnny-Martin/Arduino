@@ -1,0 +1,9 @@
+﻿# This file is generated. Do not change.
+
+BitArray			KEYWORD1
+HD44780_Controller			KEYWORD1
+HD44780_Driver			KEYWORD1
+HD44780_DriverSerial3Wire			KEYWORD1
+HD44780_Profile			KEYWORD1
+HD44780_View			KEYWORD1
+HD44780_ViewPort			KEYWORD1
