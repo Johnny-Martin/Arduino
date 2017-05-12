@@ -9,7 +9,7 @@
 
 // Define this to set a custom name for your generic Mendel,
 // 
-#define MY_CUSTOM_MENDEL_NAME "MARK 350"
+#define MY_CUSTOM_MENDEL_NAME "MARTIN 350"
 
 
 
@@ -48,7 +48,7 @@
 // 自动调平探针xyz的偏移
 #define MY_X_PROBE_OFFSET_FROM_EXTRUDER 0
 #define MY_Y_PROBE_OFFSET_FROM_EXTRUDER -30
-#define MY_Z_PROBE_OFFSET_FROM_EXTRUDER -1.56 //-7.6
+#define MY_Z_PROBE_OFFSET_FROM_EXTRUDER -1.40 //-1.56, -7.6 假如自动调平后，打印第一层时喷嘴压倒玻璃板，将此值改大一些（例如由-1.56 改成 -1.2）
 
 // For deltabots this means top and center of the Cartesian print volume.
 // xyz轴Home位置
