@@ -4,8 +4,8 @@
 
 #include <stdint.h>
 
-
-namespace ATL{
+//Ergonomic Keyboard namespace
+namespace EKEY{
 	template<const uint8_t PinNumberA, const uint8_t PinNumberB>
 	class Encoder{
 	private:
