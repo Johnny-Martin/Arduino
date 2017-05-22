@@ -12,20 +12,8 @@ namespace EKEY{
 		uint8_t m_ports [LENGTH];
 		uint8_t m_size;
 	public:
-		VirtualParallelPort(uint8_t ports[], uint8_t length){
-			if(length > LENGTH || LENGTH > 8)
-				ASSERT(false, "TemplateParamError");
-				return;
-			}
-			m_size = length;
-			
-			for(uint8_t i=0; i<LENGTH; ++i){
-				if(i < length){
-					m_ports[i] = ports[i];
-				}else{
-					m_ports[i] = 0;
-				}
-			}
+		VirtualParallelPort(uint8_t ports, uint8_t len):m_size(len){
+
 		}
 		
 		uint8_t Read(){
@@ -48,12 +36,12 @@ namespace EKEY{
 				pinMode(m_ports[i], OUTPUT);
 				uint8_t tmp = data & selector;
 				if(tmp > 0){
-					digitalWrite(m_ports[i], HEIGHT);
+					digitalWrite(m_ports[i], HIGH);
 				}else{
 					digitalWrite(m_ports[i], LOW);
 				}
 			}
 		}
-	}
+	};
 }
 #endif

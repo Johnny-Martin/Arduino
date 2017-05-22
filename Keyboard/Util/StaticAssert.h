@@ -10,11 +10,11 @@ template<>
 struct ComplileTimeChecker<false> {};
 
 namespace EKEY {
-    #define ASSERT(expr, msg)                         \
-	{                                                 \
-		class ERROR_##msg {};                         \
-		ERROR_##msg ObjMaker();                       \
-		sizeof(ComplileTimeChecker<expr>(ObjMaker())) \
+    #define ASSERT(expr, msg)                           \
+	{                                                   \
+		class ERROR_##msg {};                           \
+		ERROR_##msg ObjMaker();                         \
+		sizeof(ComplileTimeChecker<(expr)>(ObjMaker())) \
 	}
 } //ATL
 

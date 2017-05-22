@@ -2,18 +2,20 @@
 #ifndef _MATRIX_H_
 #define _MATRIX_H_
 
+#include <Keyboard.h>
+
 #define matrixRow 8
 #define matrixCol 8
                          
-#define KEY_LEFT_SHIFT   KEY_SHIFT
-#define KEY_LEFT_CTRL    KEY_CTRL
-#define KEY_LEFT_ALT     KEY_ALT
-#define KEY_LEFT_GUI     KEY_WIN
-#define KEY_DELETE       KEY_DEL
-#define KEY_LEFT_ARROW   KEY_LARROW
-#define KEY_RIGHT_ARROW  KEY_RARROW
-#define KEY_DOWN_ARROW   KEY_DARROW
-#define KEY_UP_ARROW     KEY_UARROW
+#define KEY_SHIFT 0   
+#define KEY_CTRL 0    
+#define KEY_ALT 0     
+#define KEY_WIN 0     
+#define KEY_DEL 0       
+#define KEY_LARROW 0   
+#define KEY_RARROW 0  
+#define KEY_DARROW 0   
+#define KEY_UARROW  0     
 #define KEY_PAGEUP       0
 #define KEY_PAGEDOWN     0
 #define KEY_HOME         0
@@ -24,8 +26,24 @@
 
 #define KEY_VOLUP        0
 #define KEY_VOLDOWN      0
+#define KEY_ESC          0
+#define KEY_BACKSPACE          0
 
-#define KEY_FUN 0xFF
+#define KEY_FUN   0xFF
+#define KEY_TAB   0
+#define KEY_F1   0
+#define KEY_F2   0
+#define KEY_F3   0
+#define KEY_F4   0
+#define KEY_F5   0
+#define KEY_F6   0
+#define KEY_F7   0
+#define KEY_F8   0
+#define KEY_F9   0
+#define KEY_F10   0
+#define KEY_F11   0
+#define KEY_F12   0
+
 #define KEY_SPACE ' '
 #define KEY_ENTER '\n'
 
@@ -65,7 +83,7 @@ namespace EKEY{
 		{KEY_SHIFT, 'Z',       'C',     0 ,    '0',     'K',    KEY_PAGEUP, '?'},
 		{KEY_CTRL,  KEY_ALT,   'V',     0 ,    'T',     '3',    KEY_HOME,   KEY_END},
 		{KEY_WIN,   KEY_SPACE, '[',    KEY_F6, 'M',     '2',    KEY_ENTER,  KEY_PAGEDOWN}
-	}
+	};
 	
 	uint8_t Matrix_DbFun[matrixRow][matrixCol] = {
 		{KEY_F2,    KEY_F3,    KEY_F4, KEY_F5, KEY_F7,  KEY_F8, KEY_F9,     KEY_F10},
@@ -76,6 +94,6 @@ namespace EKEY{
 		{KEY_SHIFT, 'Z',       'C',     0 ,    '0',     'K',    KEY_PAGEUP, '?'},
 		{KEY_CTRL,  KEY_ALT,   'V',     0 ,    'T',     '3',    KEY_HOME,   KEY_END},
 		{KEY_WIN,   KEY_SPACE, '[',    KEY_F6, 'M',     '2',    KEY_ENTER,  KEY_PAGEDOWN}
-	}
+	};
 }
 #endif

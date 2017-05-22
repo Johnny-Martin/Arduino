@@ -5,6 +5,7 @@
 #include <Keyboard.h>
 #include "..\Matrix\Matrix.h"
 #include "..\VirtualParallelPort\VirtualParallelPort.h"
+
 /*
  *
  */
@@ -15,22 +16,15 @@ namespace EKEY{
 	 *用作鼠标滚轮。
 	 */
 	class KeyboardProxy{
-		VirtualParallelPort* rowPort;
-		VirtualParallelPort* columnPort;
+	public:
+		KeyboardProxy();
+		void Init();
+		void Excute(void);
+	private:
+		VirtualParallelPort<8>* rowPort;
+		VirtualParallelPort<8>* columnPort;
 		bool IsFunDbClicked();
 		bool IsFunDown();
-		
-	public:
-		KeyboardProxy(){
-			rowPort    = new VirtualParallelPort<8>(Row);
-			columnPort = new VirtualParallelPort<8>(Col);
-		}
-		
-		void Init(){
-			Keyboard.begin();
-		}
-		
-		void Excute(void);
-	}
+	};
 }
 #endif
