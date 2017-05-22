@@ -4,9 +4,6 @@
 
 #define matrixRow 8
 #define matrixCol 8
-
-uint8_t Row[matrixRow] = {1,2,3,4,5,6,7,8}; 
-uint8_t Col[matrixCol] = {9,10,11,12,13,A0,A1,A2};
                          
 #define KEY_LEFT_SHIFT   KEY_SHIFT
 #define KEY_LEFT_CTRL    KEY_CTRL
@@ -33,6 +30,9 @@ uint8_t Col[matrixCol] = {9,10,11,12,13,A0,A1,A2};
 #define KEY_ENTER '\n'
 
 namespace EKEY{
+	uint8_t Row[matrixRow] = {1,2,3,4,5,6,7,8}; 
+	uint8_t Col[matrixCol] = {9,10,11,12,13,A0,A1,A2};
+
 	//程序员专用，上方一行数字键默认为符号
 	uint8_t Matrix[matrixRow][matrixCol] = {
 		{'#',       '$',       '%', '!', '*',           '(', ')',        '='},
