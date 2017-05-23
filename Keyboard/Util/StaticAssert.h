@@ -14,7 +14,7 @@ namespace EKEY {
 	{                                                   \
 		class ERROR_##msg {};                           \
 		ERROR_##msg ObjMaker();                         \
-		sizeof(ComplileTimeChecker<(expr)>(ObjMaker())) \
+		sizeof(ComplileTimeChecker<(expr)>(ObjMaker()));\
 	}
 } //ATL
 

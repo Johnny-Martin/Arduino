@@ -35,8 +35,8 @@ namespace EKEY{
 //////////////////////////////////////////////////////////////////////////////////////////////
 namespace EKEY{
 	KeyboardProxy::KeyboardProxy(){
-		rowPort    = new VirtualParallelPort<8>(Row, 8);
-		columnPort = new VirtualParallelPort<8>(Col, 8);
+		rowPort    = new VirtualParallelPort<8>(Row);
+		columnPort = new VirtualParallelPort<8>(Col);
 	}
 	
 	void KeyboardProxy::Init(){
