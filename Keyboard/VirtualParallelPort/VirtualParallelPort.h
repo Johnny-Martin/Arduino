@@ -12,7 +12,7 @@ namespace EKEY{
 		uint8_t* m_ports;
 	public:
 		VirtualParallelPort(uint8_t ports[]){
-			ASSERT((LENGTH <= 8), TemplateParamError_length_error);
+			ASSERT((LENGTH == 8), TemplateParamError_length_error);
 			
 			m_ports = ports;
 		}
