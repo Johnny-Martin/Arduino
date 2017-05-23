@@ -20,11 +20,39 @@ namespace EKEY{
 		KeyboardProxy();
 		void Init();
 		void Excute(void);
+		
 	private:
 		VirtualParallelPort<8>* rowPort;
 		VirtualParallelPort<8>* columnPort;
 		bool IsFunDbClicked();
 		bool IsFunDown();
+		
 	};
+}
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+namespace EKEY{
+	KeyboardProxy::KeyboardProxy(){
+		rowPort    = new VirtualParallelPort<8>(Row, 8);
+		columnPort = new VirtualParallelPort<8>(Col, 8);
+	}
+	
+	void KeyboardProxy::Init(){
+		Keyboard.begin();
+	}
+	
+	void KeyboardProxy::Excute(void){
+		Serial.println(666);
+	}
+
+	bool KeyboardProxy::IsFunDbClicked(){
+		return false;
+	}
+
+	bool KeyboardProxy::IsFunDown(){
+		return false;
+	}
 }
 #endif
