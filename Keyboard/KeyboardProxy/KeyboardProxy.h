@@ -77,9 +77,6 @@ namespace EKEY{
 			pinMode(R_ROW_VEC[i], OUTPUT);
 		}
 		
-		for(uint8_t i=0; i<8; ++i){
-			// pinMode(R_COLUMN_VEC[i], INPUT);
-		}
 	}
 	
 	void KeyboardProxy::SetRightRowState(uint8_t iRow)
