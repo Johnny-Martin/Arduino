@@ -7,6 +7,22 @@
 #include "..\Encoder\Encoder.h"
 #include "..\VirtualParallelPort\VirtualParallelPort.h"
 
+const uint8_t R_ROW_YELLOW 	= 4;
+const uint8_t R_ROW_GREEN 	= 3;
+const uint8_t R_ROW_RED 	= 2;
+
+const uint8_t R_ROW_WHITE 	= 13;
+
+const uint8_t& R_ROW_1 = R_ROW_YELLOW;
+const uint8_t& R_ROW_2 = R_ROW_GREEN;
+const uint8_t& R_ROW_3 = R_ROW_RED;
+const uint8_t& R_ROW_4 = R_ROW_WHITE;
+
+const uint8_t R_ROW_VEC[4] = {4,3,2,13};
+const uint8_t R_COLUMN_VEC[8] = {12,11,10,9,8,7,6,5};
+
+bool R_COLUMN_STATE[8] = {0};
+
 namespace EKEY{
 	struct  KeyReport
 	{
@@ -23,6 +39,9 @@ namespace EKEY{
 	class KeyboardProxy{
 	public:
 		KeyboardProxy();
+		void Init(void);
+		void SetRightRowState(uint8_t iRow);
+		void GetRightColumnState(uint8_t iRow);
 		void Excute(void);
 		
 	private:
@@ -34,6 +53,7 @@ namespace EKEY{
 		KeyReport m_keyReport;
 		Encoder<11,10> m_encoder;
 		
+		int m_lastKeyValue;
 		void GetPressedKeys(uint8_t keys[]);
 		void GetReport(int8_t encoderRet, uint8_t keys[], KeyReport& report);
 	};
@@ -43,15 +63,57 @@ namespace EKEY{
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 namespace EKEY{
-	KeyboardProxy::KeyboardProxy():m_keyReport(){
+	KeyboardProxy::KeyboardProxy():m_keyReport(),m_lastKeyValue(0){
 		m_pRowPort    = new VirtualParallelPort<m_uParallelPortSize>(Row);
 		m_pColumnPort = new VirtualParallelPort<m_uParallelPortSize>(Col);
 		
 		m_encoder = Encoder<11,10>();
+		Init();
 	}
 	
+	void KeyboardProxy::Init(void)
+	{
+		for(uint8_t i=0; i<4; ++i){
+			pinMode(R_ROW_VEC[i], OUTPUT);
+		}
+		
+		for(uint8_t i=0; i<8; ++i){
+			// pinMode(R_COLUMN_VEC[i], INPUT);
+		}
+	}
+	
+	void KeyboardProxy::SetRightRowState(uint8_t iRow)
+	{
+		for(uint8_t i=0; i<4; ++i){
+			if(i != iRow)
+				digitalWrite(R_ROW_VEC[i], LOW);
+			else
+				digitalWrite(R_ROW_VEC[i], HIGH);
+		}
+	}
+	void KeyboardProxy::GetRightColumnState(uint8_t iRow)
+	{
+		for(uint8_t i=0; i<8; ++i){
+			pinMode(R_COLUMN_VEC[i], OUTPUT);
+			digitalWrite(R_COLUMN_VEC[i], LOW);
+			
+			pinMode(R_COLUMN_VEC[i], INPUT);
+			int value = digitalRead(R_COLUMN_VEC[i]);
+			if(value == HIGH){
+				int keyValue = (iRow+1) * (i+1);
+				if(keyValue != m_lastKeyValue){
+					m_lastKeyValue = keyValue;
+					Serial.println(keyValue);
+				}
+			}
+		}
+	}
 	void KeyboardProxy::Excute(void){
 		// Serial.println(666);
+		for(uint8_t i=0; i<4; ++i){
+			SetRightRowState(i);
+			GetRightColumnState(i);
+		}
 		
 		int8_t encoderResult = m_encoder.Excute();
 		GetPressedKeys(m_aPressedKeys);
