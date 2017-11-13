@@ -48,8 +48,8 @@
 #define KEY_ENTER '\n'
 
 namespace EKEY{
-	uint8_t Row[matrixRow] = {1,2,3,4,5,6,7,8}; 
-	uint8_t Col[matrixCol] = {9,10,11,12,13,A0,A1,A2};
+	// uint8_t Row[matrixRow] = {1,2,3,4,5,6,7,8}; 
+	// uint8_t Col[matrixCol] = {9,10,11,12,13,A0,A1,A2};
 	
 	uint8_t L_Martix[5][7] = {};
 	uint8_t R_Martix[5][7] = {};
