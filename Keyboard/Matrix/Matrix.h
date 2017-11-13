@@ -47,13 +47,12 @@
 #define KEY_SPACE ' '
 #define KEY_ENTER '\n'
 
-
-//为了节省IO口，当初设计矩阵键盘的时候，采用的是8*8的布线方式(左右两部分分别是4行8列)
-//为了方便调整键序，需要将8*8的矩阵转换为更直观的10*7。
 namespace EKEY{
 	uint8_t Row[matrixRow] = {1,2,3,4,5,6,7,8}; 
 	uint8_t Col[matrixCol] = {9,10,11,12,13,A0,A1,A2};
-
+	
+	uint8_t L_Martix[5][7] = {};
+	uint8_t R_Martix[5][7] = {};
 	//程序员专用，上方一行数字键默认为符号
 	uint8_t Matrix[matrixRow][matrixCol] = {
 		{'#',       '$',       '%', '!', '*',           '(', ')',        '='},
