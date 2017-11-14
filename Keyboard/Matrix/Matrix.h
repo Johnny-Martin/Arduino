@@ -51,7 +51,13 @@ namespace EKEY{
 	// uint8_t Row[matrixRow] = {1,2,3,4,5,6,7,8}; 
 	// uint8_t Col[matrixCol] = {9,10,11,12,13,A0,A1,A2};
 	
-	uint8_t L_Martix[5][7] = {0};
+	uint8_t L_Martix[5][7] = {
+		{KEY_ESC, KEY_F1, KEY_F2, KEY_F3, KEY_F4, KEY_F5, 0},
+		{0x35, 0x04, 0x05, 0x06, 0x07, 0x08},
+		{0},
+		{0},
+		{0}
+	};
 	uint8_t R_Martix[5][7] = {0};
 	
 	#define SHIFT 0x80
