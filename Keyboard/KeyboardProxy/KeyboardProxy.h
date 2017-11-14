@@ -96,11 +96,13 @@ namespace EKEY{
 				uint8_t rowPos 		= pos/10 - 1;
 				uint8_t columnPos 	= pos%10 - 1;
 				curPressedKey		= L_Martix[rowPos][columnPos];
+				Serial.println(pos);
 			}else{
 				uint8_t pos 		= R_MatrixAdapter[fakePos];
 				uint8_t rowPos 		= pos/10 - 1;
 				uint8_t columnPos 	= pos%10 - 1;
 				curPressedKey		= R_Martix[rowPos][columnPos];
+				Serial.println(pos);
 			}
 			if(curPressedKey != 0 && m_pressedKeysCount+1 < 6){
 				m_keyReport.keys[m_pressedKeysCount++] = curPressedKey;
@@ -130,7 +132,10 @@ namespace EKEY{
 	}
 	
 	void KeyboardProxy::Report(){
-		if(m_pressedKeysCount == 0) return;
+		if(m_pressedKeysCount == 0){
+			//Serial.println("no key");
+			return;
+		} 
 		
 		for(uint8_t i=0; i<6; ++i){
 			uint8_t& k = m_keyReport.keys[i];
@@ -152,7 +157,7 @@ namespace EKEY{
 			}
 		}
 		
-		//HID().SendReport(2, &m_keyReport, sizeof(KeyReport));
+		HID().SendReport(2, &m_keyReport, sizeof(KeyReport));
 		
 		Serial.print("send report, modifiers: ");
 		Serial.print(m_keyReport.modifiers);
