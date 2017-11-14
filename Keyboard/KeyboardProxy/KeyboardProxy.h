@@ -130,6 +130,8 @@ namespace EKEY{
 	}
 	
 	void KeyboardProxy::Report(){
+		if(m_pressedKeysCount == 0) return;
+		
 		for(uint8_t i=0; i<6; ++i){
 			uint8_t& k = m_keyReport.keys[i];
 			if (k >= 136) {			// it's a non-printing key (not a modifier)
