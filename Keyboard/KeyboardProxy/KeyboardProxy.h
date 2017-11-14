@@ -55,8 +55,7 @@ namespace EKEY{
 		Init();
 	}
 	
-	void KeyboardProxy::ClearReport(void)
-	{
+	void KeyboardProxy::ClearReport(void){
 		m_keyReport.modifiers = 0;
 		m_keyReport.reserved  = 0;
 		for(uint8_t i=0; i<6; ++i){
@@ -65,16 +64,14 @@ namespace EKEY{
 		m_pressedKeysCount = 0;
 	}
 	
-	void KeyboardProxy::Init(void)
-	{
+	void KeyboardProxy::Init(void){
 		for(uint8_t i=0; i<4; ++i){
 			pinMode(R_ROW_VEC[i], OUTPUT);
 			pinMode(L_ROW_VEC[i], OUTPUT);
 		}
 	}
 	
-	void KeyboardProxy::SetRightRowState(const uint8_t* row_vec, uint8_t iRow)
-	{
+	void KeyboardProxy::SetRightRowState(const uint8_t* row_vec, uint8_t iRow){
 		for(uint8_t i=0; i<4; ++i){
 			if(i != iRow)
 				digitalWrite(row_vec[i], LOW);
@@ -82,8 +79,8 @@ namespace EKEY{
 				digitalWrite(row_vec[i], HIGH);
 		}
 	}
-	void KeyboardProxy::GetRightColumnState(uint8_t iRow, bool bLeftPart)
-	{
+	
+	void KeyboardProxy::GetRightColumnState(uint8_t iRow, bool bLeftPart){
 		for(uint8_t i=0; i<8; ++i){
 			pinMode(COLUMN_VEC[i], OUTPUT);
 			digitalWrite(COLUMN_VEC[i], LOW);
@@ -110,6 +107,7 @@ namespace EKEY{
 			}
 		}
 	}
+	
 	void KeyboardProxy::Excute(void){
 		//int8_t encoderResult = m_encoder.Excute();
 		ClearReport();
@@ -131,8 +129,7 @@ namespace EKEY{
 		SetRightRowState(L_ROW_VEC, 10);
 	}
 	
-	void KeyboardProxy::Report()
-	{
+	void KeyboardProxy::Report(){
 		for(uint8_t i=0; i<6; ++i){
 			uint8_t& k = m_keyReport.keys[i];
 			if (k >= 136) {			// it's a non-printing key (not a modifier)
@@ -153,7 +150,15 @@ namespace EKEY{
 			}
 		}
 		
-		HID().SendReport(2, &m_keyReport, sizeof(KeyReport));
+		//HID().SendReport(2, &m_keyReport, sizeof(KeyReport));
+		
+		Serial.print("send report, modifiers: ");
+		Serial.print(m_keyReport.modifiers);
+		Serial.print(", keys: ");
+		for(uint8_t i=0; i<6; ++i){
+			Serial.print(m_keyReport.keys[i]);
+		}
+		Serial.println("");
 	}
 }
 #endif
