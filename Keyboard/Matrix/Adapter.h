@@ -8,7 +8,7 @@
 namespace EKEY{
 	//L_MatrixAdapter内的值N是按键在L_Martix数组的位置，通过将N的个位、十位拆分，得到
 	//L_Martix的行、列index
-	uint8_t L_MatrixAdapter[33] = {
+	uint8_t L_MatrixAdapter[40] = {
 		54,//0
 		53,
 		52,
@@ -52,7 +52,7 @@ namespace EKEY{
 	};
 	
 	//右键盘的第五行第二个按键是在左键盘的扫描过程中触发的
-	uint8_t R_MatrixAdapter[33] = {
+	uint8_t R_MatrixAdapter[40] = {
 		55,//0
 		54,
 		53,
