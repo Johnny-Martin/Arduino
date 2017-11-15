@@ -20,6 +20,8 @@ namespace EKEY{
 	  uint8_t keys[6];
 	};
 	
+	KeyReport GetKeyReportCopy(const KeyReport& obj);
+	bool	  IsSameReport(const KeyReport& src, const KeyReport& dst);
 	/*1,扫描键盘矩阵，并根据检测到的按键，结合Matrix.h中提供的键位定义，输出按键信息
 	 *2,扫描滚轮，并根据按键状态输出滚轮方向。滚轮默认为输出左右箭头；按住Fun输出上下箭头
 	 *因为Arduino的IO资源紧缺，无法使用两个滚轮。蓝牙版键盘IO充足的话会再加一个滚轮，
@@ -36,6 +38,7 @@ namespace EKEY{
 	private:
 		static const uint8_t m_uMaxKeyPressed = 10;
 		KeyReport m_keyReport;
+		KeyReport m_keyLastReport;
 		//Encoder<11,10> m_encoder;
 		
 		int m_lastKeyValue;
@@ -50,7 +53,24 @@ namespace EKEY{
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 namespace EKEY{
-	KeyboardProxy::KeyboardProxy():m_keyReport(),m_lastKeyValue(0),m_pressedKeysCount(0){
+	void GetKeyReportCopy(const KeyReport& src, KeyReport& dst)
+	{
+		dst.modifiers = src.modifiers;
+		for(uint8_t i=0; i<6; ++i){
+			dst.keys[i] = src.keys[i];
+		}
+	}
+	
+	bool IsSameReport(const KeyReport& src, const KeyReport& dst)
+	{
+		for(uint8_t i=0; i<6; ++i){
+			if(dst.keys[i] != src.keys[i]) return false;
+		}
+		
+		return dst.modifiers == src.modifiers;
+	}
+	
+	KeyboardProxy::KeyboardProxy():m_keyReport(),m_keyLastReport(), m_lastKeyValue(0),m_pressedKeysCount(0){
 		//m_encoder = Encoder<11,10>();
 		Init();
 	}
@@ -96,13 +116,13 @@ namespace EKEY{
 				uint8_t rowPos 		= pos/10 - 1;
 				uint8_t columnPos 	= pos%10 - 1;
 				curPressedKey		= L_Martix[rowPos][columnPos];
-				Serial.println(pos);
+				//Serial.println(pos);
 			}else{
 				uint8_t pos 		= R_MatrixAdapter[fakePos];
 				uint8_t rowPos 		= pos/10 - 1;
 				uint8_t columnPos 	= pos%10 - 1;
 				curPressedKey		= R_Martix[rowPos][columnPos];
-				Serial.println(pos);
+				//Serial.println(pos);
 			}
 			if(curPressedKey != 0 && m_pressedKeysCount+1 < 6){
 				bool bFlag = true;
@@ -140,13 +160,13 @@ namespace EKEY{
 	void KeyboardProxy::Report(){
 		if(m_pressedKeysCount == 0){
 			//Serial.println("no key");
-			return;
+			//return;
 		} 
 		
 		for(uint8_t i=0; i<6; ++i){
 			uint8_t& k = m_keyReport.keys[i];
 			if (k > KEY_RIGHT_GUI) {			// it's a non-printing key (not a modifier)
-				// k = k - 136;
+				k = k - 136;
 			} else if (k >= KEY_LEFT_CTRL) {	// it's a modifier key
 				m_keyReport.modifiers |= (1<<(k-128));
 				k = 0;
@@ -155,7 +175,12 @@ namespace EKEY{
 			}
 		}
 		
-		//HID().SendReport(2, &m_keyReport, sizeof(KeyReport));
+		if(IsSameReport(m_keyReport, m_keyLastReport)){
+			return;
+		}
+		
+		HID().SendReport(2, &m_keyReport, sizeof(KeyReport));
+		GetKeyReportCopy(m_keyReport, m_keyLastReport);
 		
 		Serial.print("send report, modifiers: ");
 		Serial.print(m_keyReport.modifiers);

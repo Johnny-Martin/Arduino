@@ -53,15 +53,16 @@ namespace EKEY{
 		{KEY_TAB, 	'Q', 		'W', 		'E', 		'R', 		'T',		0},
 		{KEY_FUN, 	'A', 		'S', 		'D', 		'F', 		'G',		0},
 		{KEY_SHIFT,	'Z', 		'X', 		'C', 		'V', 		'B',		0},
-		{KEY_CTRL,  KEY_WIN,	KEY_ALT, 	KEY_RETURN, KEY_BACKSPACE,0,		0}
+		{KEY_CTRL,  KEY_WIN,	KEY_ALT, 	KEY_DELETE, KEY_BACKSPACE,KEY_RETURN,0}
 	};
 	
-	uint8_t R_Martix[5][7] = {
+
+  	uint8_t R_Martix[5][7] = {
 		{KEY_F6, 	KEY_F7, 	KEY_F8, 	KEY_F9, 	KEY_F10, 	KEY_F11, 	KEY_F12},
 		{'Y', 		'U', 		'I', 		'O', 		'P', 		'[',/*{*/	']'/*}*/},
 		{'H',		'J',		'K',		'L',		';',		'"',/*'*/	'|'/*\*/},
 		{'N', 		'M', 		',',/*<*/	'.',/*>*/	'/',/*?*/ 	KEY_UARROW, 0},
-		{KEY_SPACE,	KEY_DELETE,	KEY_LARROW,	KEY_DARROW, KEY_RARROW, 0, 			0}
+		{KEY_SPACE,	KEY_RETURN,	KEY_LARROW,	KEY_DARROW, KEY_RARROW, 0, 			0}
 	};
 	
 	#define SHIFT 0x80
