@@ -105,7 +105,13 @@ namespace EKEY{
 				Serial.println(pos);
 			}
 			if(curPressedKey != 0 && m_pressedKeysCount+1 < 6){
-				m_keyReport.keys[m_pressedKeysCount++] = curPressedKey;
+				bool bFlag = true;
+				for(uint8_t i=0; i<m_pressedKeysCount; ++i){
+					if(m_keyReport.keys[i] == curPressedKey){ bFlag = false;}
+				}
+				if(bFlag){
+					m_keyReport.keys[m_pressedKeysCount++] = curPressedKey;
+				}
 			}
 		}
 	}
@@ -139,25 +145,17 @@ namespace EKEY{
 		
 		for(uint8_t i=0; i<6; ++i){
 			uint8_t& k = m_keyReport.keys[i];
-			if (k >= 136) {			// it's a non-printing key (not a modifier)
-				k = k - 136;
-			} else if (k >= 128) {	// it's a modifier key
+			if (k > KEY_RIGHT_GUI) {			// it's a non-printing key (not a modifier)
+				// k = k - 136;
+			} else if (k >= KEY_LEFT_CTRL) {	// it's a modifier key
 				m_keyReport.modifiers |= (1<<(k-128));
 				k = 0;
 			} else {				// it's a printing key
-				k = pgm_read_byte(_asciimap + k);
-				if (!k) {
-					//setWriteError();
-					return;
-				}
-				if (k & 0x80) {						// it's a capital letter or other character reached with shift
-					m_keyReport.modifiers |= 0x02;	// the left shift modifier
-					k &= 0x7F;
-				}
+				k = ASC2HID[k];
 			}
 		}
 		
-		HID().SendReport(2, &m_keyReport, sizeof(KeyReport));
+		//HID().SendReport(2, &m_keyReport, sizeof(KeyReport));
 		
 		Serial.print("send report, modifiers: ");
 		Serial.print(m_keyReport.modifiers);
