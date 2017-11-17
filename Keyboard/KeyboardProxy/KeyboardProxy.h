@@ -36,6 +36,7 @@ namespace EKEY{
 		void Excute(void);
 		
 	private:
+		Encoder<A4, A5> m_encoder;
 		static const uint8_t m_uMaxKeyPressed = 10;
 		KeyReport m_keyReport;
 		KeyReport m_keyLastReport;
@@ -72,7 +73,12 @@ namespace EKEY{
 		return dst.modifiers == src.modifiers;
 	}
 	
-	KeyboardProxy::KeyboardProxy():m_keyReport(),m_keyLastReport(), m_lastKeyValue(0),m_pressedKeysCount(0){
+	KeyboardProxy::KeyboardProxy()
+		:m_keyReport()
+		,m_keyLastReport()
+		, m_lastKeyValue(0)
+		,m_encoder()
+		,m_pressedKeysCount(0){
 		//m_encoder = Encoder<11,10>();
 		Init();
 	}
@@ -105,16 +111,12 @@ namespace EKEY{
 	bool KeyboardProxy::IsFunKeyPressed()
 	{
 		SetRowState(L_ROW_VEC, 10);
-		digitalWrite(FUN_KEY_ROW_PIN, HIGH);
-		pinMode(FUN_KEY_COL_PIN, OUTPUT);
-		digitalWrite(FUN_KEY_COL_PIN, LOW);
-		pinMode(FUN_KEY_COL_PIN, INPUT);
-		int value = digitalRead(FUN_KEY_COL_PIN);
-		
+			digitalWrite(FUN_KEY_ROW_PIN, HIGH);
+			pinMode(FUN_KEY_COL_PIN, OUTPUT);
+			digitalWrite(FUN_KEY_COL_PIN, LOW);
+			pinMode(FUN_KEY_COL_PIN, INPUT);
+			int value = digitalRead(FUN_KEY_COL_PIN);
 		SetRowState(L_ROW_VEC, 10);
-		//if(value == HIGH){
-			//Serial.println("Fun key pressed");
-		//}
 		return value == HIGH;
 	}
 	
@@ -137,7 +139,6 @@ namespace EKEY{
 				if(bFunPressed){
 					curPressedKey	= L_Martix_Fun[rowPos][columnPos];
 				}
-				//Serial.println(pos);
 			}else{
 				uint8_t pos 		= R_MatrixAdapter[fakePos];
 				uint8_t rowPos 		= pos/10 - 1;
@@ -146,7 +147,6 @@ namespace EKEY{
 				if(bFunPressed){
 					curPressedKey	= R_Martix_Fun[rowPos][columnPos];
 				}
-				//Serial.println(pos);
 			}
 			if(curPressedKey != 0 && curPressedKey != KEY_FUN && m_pressedKeysCount+1 < 6){
 				bool bFlag = true;
@@ -161,7 +161,6 @@ namespace EKEY{
 	}
 	
 	void KeyboardProxy::Excute(void){
-		//int8_t encoderResult = m_encoder.Excute();
 		ClearReport();
 		GetPressedKeys();
 		Report();
@@ -181,14 +180,17 @@ namespace EKEY{
 			GetColumnState(i, true, bFunPressed);
 		}
 		SetRowState(L_ROW_VEC, 10);
+		
+		//检测编码器是否有旋转
+		int8_t encoderResult = m_encoder.Excute();
+		if(encoderResult > 0 && m_pressedKeysCount+1 < 6){
+			m_keyReport.keys[m_pressedKeysCount++] = bFunPressed ? KEY_LARROW : KEY_UARROW;
+		}else if(encoderResult < 0&& m_pressedKeysCount+1 < 6){
+			m_keyReport.keys[m_pressedKeysCount++] = bFunPressed ? KEY_RARROW : KEY_DARROW;
+		}
 	}
 	
-	void KeyboardProxy::Report(){
-		if(m_pressedKeysCount == 0){
-			//Serial.println("no key");
-			//return;
-		} 
-		
+	void KeyboardProxy::Report(){	
 		for(uint8_t i=0; i<6; ++i){
 			uint8_t& k = m_keyReport.keys[i];
 			if (k > KEY_RIGHT_GUI) {			// it's a non-printing key (not a modifier)
