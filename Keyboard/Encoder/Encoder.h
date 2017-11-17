@@ -4,7 +4,8 @@
 
 #include <stdint.h>
 
-
+//编码器正反旋转时，A、B两脚会输出不同的波形，相位差为90。在检测到A脚的跳变沿时
+//，检查B脚的电平状态，与A相同即是顺时针，相异则是逆时针(或者反过来)
 namespace EKEY{
 	template<const uint8_t PinNumberA, const uint8_t PinNumberB>
 	class Encoder{
@@ -16,10 +17,10 @@ namespace EKEY{
 		
 	public:
 		Encoder():m_LastState(LOW){
-			pinMode(PinNumberA, INPUT);
-			digitalWrite(PinNumberA, INPUT_PULLUP);
-			pinMode(PinNumberB, INPUT);
-			digitalWrite(PinNumberB, INPUT_PULLUP);
+			pinMode(PinNumberA, INPUT_PULLUP);
+			//digitalWrite(PinNumberA, INPUT_PULLUP);
+			pinMode(PinNumberB, INPUT_PULLUP);
+			//digitalWrite(PinNumberB, INPUT_PULLUP);
 		}
 		
 		int8_t Excute(){
@@ -28,6 +29,7 @@ namespace EKEY{
 			
 			if(valueA != m_LastState){
 				m_LastState = valueA;
+				
 				if(valueA != valueB){
 					return CW;
 				}else{
