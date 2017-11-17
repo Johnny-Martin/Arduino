@@ -31,8 +31,8 @@ namespace EKEY{
 	public:
 		KeyboardProxy();
 		void Init(void);
-		void SetRightRowState(const uint8_t* row_vec, uint8_t iRow);
-		void GetRightColumnState(uint8_t iRow, bool bLeftPart);
+		void SetRowState(const uint8_t* row_vec, uint8_t iRow);
+		void GetColumnState(uint8_t iRow, bool bLeftPart, bool bFunPressed);
 		void Excute(void);
 		
 	private:
@@ -48,6 +48,8 @@ namespace EKEY{
 		void GetPressedKeys();
 		//发送报文前，处理m_keyReport的modifiers字段
 		void Report();
+		
+		bool IsFunKeyPressed();
 	};
 }
 
@@ -91,7 +93,7 @@ namespace EKEY{
 		}
 	}
 	
-	void KeyboardProxy::SetRightRowState(const uint8_t* row_vec, uint8_t iRow){
+	void KeyboardProxy::SetRowState(const uint8_t* row_vec, uint8_t iRow){
 		for(uint8_t i=0; i<4; ++i){
 			if(i != iRow)
 				digitalWrite(row_vec[i], LOW);
@@ -100,7 +102,23 @@ namespace EKEY{
 		}
 	}
 	
-	void KeyboardProxy::GetRightColumnState(uint8_t iRow, bool bLeftPart){
+	bool KeyboardProxy::IsFunKeyPressed()
+	{
+		SetRowState(L_ROW_VEC, 10);
+		digitalWrite(FUN_KEY_ROW_PIN, HIGH);
+		pinMode(FUN_KEY_COL_PIN, OUTPUT);
+		digitalWrite(FUN_KEY_COL_PIN, LOW);
+		pinMode(FUN_KEY_COL_PIN, INPUT);
+		int value = digitalRead(FUN_KEY_COL_PIN);
+		
+		SetRowState(L_ROW_VEC, 10);
+		//if(value == HIGH){
+			//Serial.println("Fun key pressed");
+		//}
+		return value == HIGH;
+	}
+	
+	void KeyboardProxy::GetColumnState(uint8_t iRow, bool bLeftPart, bool bFunPressed){
 		for(uint8_t i=0; i<8; ++i){
 			pinMode(COLUMN_VEC[i], OUTPUT);
 			digitalWrite(COLUMN_VEC[i], LOW);
@@ -116,15 +134,21 @@ namespace EKEY{
 				uint8_t rowPos 		= pos/10 - 1;
 				uint8_t columnPos 	= pos%10 - 1;
 				curPressedKey		= L_Martix[rowPos][columnPos];
+				if(bFunPressed){
+					curPressedKey	= L_Martix_Fun[rowPos][columnPos];
+				}
 				//Serial.println(pos);
 			}else{
 				uint8_t pos 		= R_MatrixAdapter[fakePos];
 				uint8_t rowPos 		= pos/10 - 1;
 				uint8_t columnPos 	= pos%10 - 1;
 				curPressedKey		= R_Martix[rowPos][columnPos];
+				if(bFunPressed){
+					curPressedKey	= R_Martix_Fun[rowPos][columnPos];
+				}
 				//Serial.println(pos);
 			}
-			if(curPressedKey != 0 && m_pressedKeysCount+1 < 6){
+			if(curPressedKey != 0 && curPressedKey != KEY_FUN && m_pressedKeysCount+1 < 6){
 				bool bFlag = true;
 				for(uint8_t i=0; i<m_pressedKeysCount; ++i){
 					if(m_keyReport.keys[i] == curPressedKey){ bFlag = false;}
@@ -144,17 +168,19 @@ namespace EKEY{
 	}
 	
 	void KeyboardProxy::GetPressedKeys(){
-		for(uint8_t i=0; i<4; ++i){
-			SetRightRowState(R_ROW_VEC, i);
-			GetRightColumnState(i, false);
-		}
-		SetRightRowState(R_ROW_VEC, 10);
+		bool bFunPressed = IsFunKeyPressed();
 		
 		for(uint8_t i=0; i<4; ++i){
-			SetRightRowState(L_ROW_VEC, i);
-			GetRightColumnState(i, true);
+			SetRowState(R_ROW_VEC, i);
+			GetColumnState(i, false, bFunPressed);
 		}
-		SetRightRowState(L_ROW_VEC, 10);
+		SetRowState(R_ROW_VEC, 10);
+		
+		for(uint8_t i=0; i<4; ++i){
+			SetRowState(L_ROW_VEC, i);
+			GetColumnState(i, true, bFunPressed);
+		}
+		SetRowState(L_ROW_VEC, 10);
 	}
 	
 	void KeyboardProxy::Report(){

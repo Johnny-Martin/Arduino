@@ -15,3 +15,6 @@ const uint8_t& R_ROW_4 		= R_ROW_WHITE;
 const uint8_t R_ROW_VEC[4] = {4,3,2,13};
 const uint8_t L_ROW_VEC[4] = {A0,A3,A2,A1};
 const uint8_t COLUMN_VEC[8] = {12,11,10,9,8,7,6,5};
+
+const uint8_t FUN_KEY_ROW_PIN = A2;
+const uint8_t FUN_KEY_COL_PIN = 9;

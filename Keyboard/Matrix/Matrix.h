@@ -65,7 +65,23 @@ namespace EKEY{
 		{KEY_SPACE,	KEY_RETURN,	KEY_LARROW,	KEY_DARROW, KEY_RARROW, 0, 			0}
 	};
 	
-	#define SHIFT 0x80
+	//第二层按键定义
+	uint8_t L_Martix_Fun[5][7] = {
+		{'~', 		'1', 		'2', 		'3', 		'4', 		'5', 		0},
+		{KEY_TAB, 	'Q', 		'W', 		'E', 		'R', 		'T',		0},
+		{KEY_FUN, 	'A', 		'S', 		'D', 		'F', 		'G',		0},
+		{KEY_SHIFT,	'Z', 		'X', 		'C', 		'V', 		'B',		0},
+		{KEY_CTRL,  KEY_WIN,	KEY_ALT, 	KEY_DELETE, KEY_BACKSPACE,KEY_RETURN,0}
+	};
+
+  	uint8_t R_Martix_Fun[5][7] = {
+		{'6', 		'7', 		'8', 		'9', 		'0', 		'-', 		'+'},
+		{'Y', 		'U', 		'I', 		'O', 		'P', 		'[',/*{*/	']'/*}*/},
+		{'H',		'J',		'K',		'L',		';',		'"',/*'*/	'|'/*\*/},
+		{'N', 		'M', 		',',/*<*/	'.',/*>*/	'/',/*?*/ 	KEY_UARROW, 0},
+		{KEY_SPACE,	KEY_RETURN,	KEY_LARROW,	KEY_DARROW, KEY_RARROW, 0, 			0}
+	};
+	
 	const uint8_t ASC2HID[128] = {
 		0x00,	// NUL
 		0x00,	// SOH
