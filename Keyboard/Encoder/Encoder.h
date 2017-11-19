@@ -17,9 +17,9 @@ namespace EKEY{
 		
 	public:
 		Encoder():m_LastState(LOW){
-			pinMode(PinNumberA, INPUT_PULLUP);
+			pinMode(PinNumberA, INPUT);
 			//digitalWrite(PinNumberA, INPUT_PULLUP);
-			pinMode(PinNumberB, INPUT_PULLUP);
+			pinMode(PinNumberB, INPUT);
 			//digitalWrite(PinNumberB, INPUT_PULLUP);
 		}
 		
