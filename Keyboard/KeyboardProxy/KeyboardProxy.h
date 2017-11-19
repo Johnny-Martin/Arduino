@@ -36,7 +36,7 @@ namespace EKEY{
 		void Excute(void);
 		
 	private:
-		Encoder<A4, A5> m_encoder;
+		Encoder<A5, A4> m_encoder;
 		static const uint8_t m_uMaxKeyPressed = 10;
 		KeyReport m_keyReport;
 		KeyReport m_keyLastReport;
@@ -184,9 +184,11 @@ namespace EKEY{
 		//检测编码器是否有旋转
 		int8_t encoderResult = m_encoder.Excute();
 		if(encoderResult > 0 && m_pressedKeysCount+1 < 6){
-			m_keyReport.keys[m_pressedKeysCount++] = bFunPressed ? KEY_LARROW : KEY_UARROW;
+			// m_keyReport.keys[m_pressedKeysCount++] = bFunPressed ? KEY_LARROW : KEY_UARROW;
+			Serial.println("CW");
 		}else if(encoderResult < 0&& m_pressedKeysCount+1 < 6){
-			m_keyReport.keys[m_pressedKeysCount++] = bFunPressed ? KEY_RARROW : KEY_DARROW;
+			// m_keyReport.keys[m_pressedKeysCount++] = bFunPressed ? KEY_RARROW : KEY_DARROW;
+			Serial.println("CCW");
 		}
 	}
 	
@@ -210,13 +212,13 @@ namespace EKEY{
 		HID().SendReport(2, &m_keyReport, sizeof(KeyReport));
 		GetKeyReportCopy(m_keyReport, m_keyLastReport);
 		
-		Serial.print("send report, modifiers: ");
-		Serial.print(m_keyReport.modifiers);
-		Serial.print(", keys: ");
-		for(uint8_t i=0; i<6; ++i){
-			Serial.print(m_keyReport.keys[i]);
-		}
-		Serial.println("");
+		// Serial.print("send report, modifiers: ");
+		// Serial.print(m_keyReport.modifiers);
+		// Serial.print(", keys: ");
+		// for(uint8_t i=0; i<6; ++i){
+			// Serial.print(m_keyReport.keys[i]);
+		// }
+		// Serial.println("");
 	}
 }
 #endif
