@@ -3,7 +3,6 @@
 
 #include <stdint.h>
 #include <HID.h>
-#include "PinDefinition.h"
 #include "..\Matrix\Matrix.h"
 #include "..\Matrix\Adapter.h"
 #include "..\Encoder\Encoder.h"

@@ -20,6 +20,8 @@ namespace EKEY{
 		void GetPressedKeys();
 		HIDKeyReport m_report;
 		HIDKeyReport m_lastReport;
+		Encoder<A4, A5> m_encoder;
+		
 	};
 }
 
@@ -101,6 +103,15 @@ namespace EKEY{
 			GetColumnState(i, true, bFunPressed);
 		}
 		SetRowState(L_ROW_VEC, 10);
+		
+		int8_t dir = m_encoder.Excute();
+		if(dir == m_encoder.CW){
+			m_report.PushKey(bFunPressed ? KEY_UARROW : KEY_LARROW);
+			Serial.println(-1);
+		}else if(dir == m_encoder.CCW){
+			m_report.PushKey(bFunPressed ? KEY_DARROW : KEY_RARROW);
+			Serial.println(1);
+		}
 	}
 	
 	void KeyboardImpl::Excute(void){
@@ -110,6 +121,7 @@ namespace EKEY{
 			m_report.Report();
 			m_lastReport = m_report;
 		}
+		
 	}
 }
 #endif

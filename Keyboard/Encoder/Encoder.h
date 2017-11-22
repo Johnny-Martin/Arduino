@@ -14,22 +14,23 @@ namespace EKEY{
 	public:
 		static const int8_t CW;
 		static const int8_t CCW;
+		static const int    Flag;
 		
 	public:
 		Encoder():m_LastState(LOW){
 			pinMode(PinNumberA, INPUT);
-			//digitalWrite(PinNumberA, INPUT_PULLUP);
 			pinMode(PinNumberB, INPUT);
-			//digitalWrite(PinNumberB, INPUT_PULLUP);
 		}
 		
 		int8_t Excute(){
-			uint8_t valueA = digitalRead(PinNumberA);
-			uint8_t valueB = digitalRead(PinNumberB);
+			uint8_t valueA = analogRead(PinNumberA) > Flag ? HIGH : LOW;
+			uint8_t valueB = analogRead(PinNumberB) > Flag ? HIGH : LOW;
 			
 			if(valueA != m_LastState){
 				m_LastState = valueA;
-				
+				if(valueA == HIGH){
+					return 0;
+				}
 				if(valueA != valueB){
 					return CW;
 				}else{
@@ -45,7 +46,7 @@ namespace EKEY{
 			
 			if(valueA != m_LastState){
 				m_LastState = valueA;
-				if(valueA != LOW){
+				if(valueA = LOW){
 					return CW;
 				}else{
 					return CCW;
@@ -61,5 +62,8 @@ namespace EKEY{
 
 	template<const uint8_t PinNumberA, const uint8_t PinNumberB>
 	const int8_t Encoder<PinNumberA, PinNumberB>::CCW = -1;
+	
+	template<const uint8_t PinNumberA, const uint8_t PinNumberB>
+	const int Encoder<PinNumberA, PinNumberB>::Flag = 600;
 }
 #endif
